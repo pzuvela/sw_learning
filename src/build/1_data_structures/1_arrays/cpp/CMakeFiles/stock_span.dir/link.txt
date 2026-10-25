@@ -1,1 +1,0 @@
-/data/data/com.termux/files/usr/bin/c++ -O2 -g -DNDEBUG -Xlinker --dependency-file=CMakeFiles/stock_span.dir/link.d CMakeFiles/stock_span.dir/stock_span.cpp.o -o stock_span

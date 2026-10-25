@@ -1,1 +1,0 @@
-/data/data/com.termux/files/usr/bin/c++ -O2 -g -DNDEBUG -Xlinker --dependency-file=CMakeFiles/next_greater.dir/link.d CMakeFiles/next_greater.dir/next_greater.cpp.o -o next_greater

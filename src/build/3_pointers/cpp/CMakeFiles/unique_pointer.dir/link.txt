@@ -1,1 +1,0 @@
-/data/data/com.termux/files/usr/bin/c++ -O2 -g -DNDEBUG -Xlinker --dependency-file=CMakeFiles/unique_pointer.dir/link.d CMakeFiles/unique_pointer.dir/__/__/2_oop/cpp/person.cpp.o CMakeFiles/unique_pointer.dir/unique_pointer.cpp.o -o unique_pointer

@@ -1,1 +1,0 @@
-/data/data/com.termux/files/usr/bin/c++ -O2 -g -DNDEBUG -Xlinker --dependency-file=CMakeFiles/raw_pointer.dir/link.d CMakeFiles/raw_pointer.dir/__/__/2_oop/cpp/person.cpp.o CMakeFiles/raw_pointer.dir/raw_pointer.cpp.o -o raw_pointer
