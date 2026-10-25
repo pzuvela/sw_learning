@@ -56,7 +56,10 @@ void testNextGreater()
     std::vector<TestCase> cases
     {
         {{2, 1, 4, 3}, {4, 4, -1, -1}},
-        {{1, 2, 3}, {2, 3, -1}}
+        {{1, 2, 3}, {2, 3, -1}},
+        {{3, 2, 1}, {-1, -1, -1}},
+        {{5}, {-1}},
+        {{}, {}}
     };
 
     for (const TestCase& testCase : cases)
@@ -65,6 +68,8 @@ void testNextGreater()
         printResult(result);
         assert(result == testCase.expected);
     }
+
+    std::cout << "All tests passed\n";
 }
 
 
