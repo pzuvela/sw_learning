@@ -2,11 +2,11 @@
 #include <vector>
 
 
-
-void printResult(const std::vector<int>& resultNums)
+template <typename T>
+void printResult(const std::vector<T>& resultNums)
 {
 
-   for (int i : resultNums)
+   for (const T& i : resultNums)
    {
        std::cout << i << ' ';
    }
