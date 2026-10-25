@@ -52,7 +52,7 @@ void testNextGreater()
     for (const IntVectorTestCase& testCase : cases)
     {
         std::vector<int> result = nextGreater(testCase.input);
-        printResult(result);
+        printVector(result);
         assert(result == testCase.expected);
     }
 

@@ -3,10 +3,10 @@
 
 
 template <typename T>
-void printResult(const std::vector<T>& resultNums)
+void printVector(const std::vector<T>& values)
 {
 
-   for (const T& i : resultNums)
+   for (const T& value : values)
    {
        std::cout << i << ' ';
    }
