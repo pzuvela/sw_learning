@@ -2,6 +2,10 @@
 #include <vector>
 #include <stack>
 #include <cassert>
+#include "includes/test_case.h"
+
+using IntVectorTestCase = TestCase<std::vector<int>, std::vector<int>>;
+
 
 std::vector<int> nextGreater(const std::vector<int>& nums) 
 {
@@ -44,16 +48,9 @@ void printResult(const std::vector<int>& resultNums)
    std::cout << '\n';
 }
 
-struct TestCase 
-{
-    std::vector<int> input;
-    std::vector<int> expected;
-};
-
-
 void testNextGreater() 
 {
-    std::vector<TestCase> cases
+    std::vector<IntVectorTestCase> cases
     {
         {{2, 1, 4, 3}, {4, 4, -1, -1}},
         {{1, 2, 3}, {2, 3, -1}},
@@ -62,7 +59,7 @@ void testNextGreater()
         {{}, {}}
     };
 
-    for (const TestCase& testCase : cases)
+    for (const IntVectorTestCase& testCase : cases)
     {
         std::vector<int> result = nextGreater(testCase.input);
         printResult(result);
