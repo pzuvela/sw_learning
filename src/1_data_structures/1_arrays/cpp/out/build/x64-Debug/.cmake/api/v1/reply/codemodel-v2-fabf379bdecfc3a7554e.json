@@ -1,0 +1,70 @@
+{
+	"configurations" : 
+	[
+		{
+			"abstractTargets" : [],
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f040eec181a89de70dbe.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "CppAlgorithms",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "daily_temperatures::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-daily_temperatures-Debug-f00dceaed5fb6ebcc659.json",
+					"name" : "daily_temperatures",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "next_greater::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-next_greater-Debug-f86b11f052d6b91dba39.json",
+					"name" : "next_greater",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/petar/source/repos/pzuvela/sw_learning/src/1_data_structures/1_arrays/cpp/out/build/x64-Debug",
+		"source" : "C:/Users/petar/source/repos/pzuvela/sw_learning/src/1_data_structures/1_arrays/cpp"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 10
+	}
+}

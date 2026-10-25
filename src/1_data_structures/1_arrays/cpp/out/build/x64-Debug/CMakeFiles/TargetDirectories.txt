@@ -1,0 +1,4 @@
+C:/Users/petar/source/repos/pzuvela/sw_learning/src/1_data_structures/1_arrays/cpp/out/build/x64-Debug/CMakeFiles/next_greater.dir
+C:/Users/petar/source/repos/pzuvela/sw_learning/src/1_data_structures/1_arrays/cpp/out/build/x64-Debug/CMakeFiles/daily_temperatures.dir
+C:/Users/petar/source/repos/pzuvela/sw_learning/src/1_data_structures/1_arrays/cpp/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/Users/petar/source/repos/pzuvela/sw_learning/src/1_data_structures/1_arrays/cpp/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir

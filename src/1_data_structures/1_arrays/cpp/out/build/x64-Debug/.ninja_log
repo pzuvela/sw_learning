@@ -1,0 +1,5 @@
+# ninja log v7
+11	621	8146224847928887	CMakeFiles/daily_temperatures.dir/daily_temperatures.cpp.obj	a103f57f9e645be4
+4	633	8146224847858909	CMakeFiles/next_greater.dir/next_greater.cpp.obj	a91b0b8871579672
+623	917	8146224854052667	daily_temperatures.exe	cc68c72a25c163f2
+633	935	8146224854162750	next_greater.exe	cc65dffbea0e15d
