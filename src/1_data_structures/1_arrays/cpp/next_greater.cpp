@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <cassert>
 
 std::vector<int> nextGreater(const std::vector<int>& nums) 
 {
@@ -45,9 +46,9 @@ void printResult(const std::vector<int>& resultNums)
 
 struct TestCase 
 {
-    std:vector<int> input;
-    std:vector<int> expected;
-}
+    std::vector<int> input;
+    std::vector<int> expected;
+};
 
 
 void testNextGreater() 
@@ -58,11 +59,11 @@ void testNextGreater()
         {{1, 2, 3}, {2, 3, -1}}
     };
 
-    for (const TestCase& case : cases)
+    for (const TestCase& testCase : cases)
     {
-        std::vector<int> result = nextGreater(case.input);
+        std::vector<int> result = nextGreater(testCase.input);
         printResult(result);
-        assert(result == case.expected);
+        assert(result == testCase.expected);
     }
 }
 
