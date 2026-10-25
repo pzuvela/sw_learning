@@ -3,6 +3,8 @@
 #include <stack>
 #include <cassert>
 #include "includes/test_case.h"
+#include "includes/test_helpers.h"
+
 
 using IntVectorTestCase = TestCase<std::vector<int>, std::vector<int>>;
 
@@ -34,18 +36,6 @@ std::vector<int> nextGreater(const std::vector<int>& nums)
 
     return result;
 
-}
-
-
-void printResult(const std::vector<int>& resultNums)
-{
-
-   for (int i : resultNums)
-   {
-       std::cout << i << ' ';
-   }
-
-   std::cout << '\n';
 }
 
 void testNextGreater() 
