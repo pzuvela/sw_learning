@@ -6,5 +6,3 @@ struct TestCase
     TInput input;
     TExpected expected;
 };
-
-
