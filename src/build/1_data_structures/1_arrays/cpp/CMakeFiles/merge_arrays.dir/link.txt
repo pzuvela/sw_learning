@@ -1,0 +1,1 @@
+/data/data/com.termux/files/usr/bin/c++ -O2 -g -DNDEBUG -Xlinker --dependency-file=CMakeFiles/merge_arrays.dir/link.d CMakeFiles/merge_arrays.dir/merge_arrays.cpp.o -o merge_arrays

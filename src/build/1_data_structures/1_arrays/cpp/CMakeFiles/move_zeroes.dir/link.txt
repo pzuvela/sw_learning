@@ -1,0 +1,1 @@
+/data/data/com.termux/files/usr/bin/c++ -O2 -g -DNDEBUG -Xlinker --dependency-file=CMakeFiles/move_zeroes.dir/link.d CMakeFiles/move_zeroes.dir/move_zeroes.cpp.o -o move_zeroes

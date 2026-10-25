@@ -1,0 +1,1 @@
+/data/data/com.termux/files/usr/bin/c++ -O2 -g -DNDEBUG -Xlinker --dependency-file=CMakeFiles/two_sum.dir/link.d CMakeFiles/two_sum.dir/two_sum.cpp.o -o two_sum

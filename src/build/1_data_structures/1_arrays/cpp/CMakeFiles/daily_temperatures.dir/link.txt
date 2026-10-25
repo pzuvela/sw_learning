@@ -1,0 +1,1 @@
+/data/data/com.termux/files/usr/bin/c++ -O2 -g -DNDEBUG -Xlinker --dependency-file=CMakeFiles/daily_temperatures.dir/link.d CMakeFiles/daily_temperatures.dir/daily_temperatures.cpp.o -o daily_temperatures

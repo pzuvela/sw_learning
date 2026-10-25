@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"/data/data/com.termux/files/home/dev/sw_learning/src/build/cmake_install.cmake",
+		"/data/data/com.termux/files/home/dev/sw_learning/src/build/1_data_structures/1_arrays/cpp/cmake_install.cmake",
+		"/data/data/com.termux/files/home/dev/sw_learning/src/build/2_oop/cpp/cmake_install.cmake",
+		"/data/data/com.termux/files/home/dev/sw_learning/src/build/3_pointers/cpp/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
