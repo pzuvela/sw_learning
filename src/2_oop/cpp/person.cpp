@@ -26,14 +26,14 @@ Person& Person::operator=(const Person& other)
     return *this; // Return the current object by reference to allow chaining.
 }
 
-Person::Person(Person&& other)
+Person::Person(Person&& other) noexcept
     : name_(std::move(other.name_)),
       age_(other.age_)  // inexpensive to copy int
 {
     std::cout << "Moved Person\n";
 }
 
-Person& Person::operator=(Person&& other)
+Person& Person::operator=(Person&& other) noexcept
 {
     std::cout << "Moved Person by assignment from " << other.name_ << '\n';
     name_ = std::move(other.name_);

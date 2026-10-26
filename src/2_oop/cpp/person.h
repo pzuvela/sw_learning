@@ -30,8 +30,8 @@ public:
     Person(const std::string& name, int age); // constructor
     Person(const Person& other); // copy constructor
     Person& operator=(const Person& other); // copy assignment operator
-    Person(Person&& other); // rvalue reference for move, move constructor
-    Person& operator=(Person&& other); // move assignment operator
+    Person(Person&& other) noexcept; // rvalue reference for move, move constructor
+    Person& operator=(Person&& other) noexcept; // move assignment operator
     ~Person(); // destructor
 
     Person& setAge(int age); // setter for age field

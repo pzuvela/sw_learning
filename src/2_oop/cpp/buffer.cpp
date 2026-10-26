@@ -67,6 +67,41 @@ Buffer& Buffer::operator=(const Buffer& other)
     return *this;
 };
 
+Buffer::Buffer(Buffer&& other) noexcept
+	: data_(std::move(other.data_)),
+      size_(other.size_)
+{
+    other.data_ = nullptr;
+    other.size_ = 0;
+
+
+    std::cout << "Allocated "
+        << size_ << " integers by move\n";
+};
+
+Buffer& Buffer::operator=(Buffer&& other) noexcept
+{
+    // Prevent deleting the memory we are about to move from during self-assignment
+    if (this == &other)
+    {
+        return *this;
+    }
+
+    size_ = other.size_;
+
+    delete[] data_;  // Need to first free the memory, because overwriting the pointer only would lead to memory leak...
+
+    data_ = other.data_;
+
+    other.data_ = nullptr;
+    other.size_ = 0;
+
+    std::cout << "Allocated "
+        << size_ << " integers by move assignment\n";
+
+    return *this;
+};
+
 Buffer::~Buffer()
 {
     delete[] data_; // delete ~ delete single obj, delete[] ~ delete an array of objs - knows it needs to destroy all elements
