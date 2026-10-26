@@ -1,4 +1,5 @@
 #include "person.h"
+#include <utility>
 
 int main()
 {
@@ -14,4 +15,10 @@ int main()
     assigned.greet();
 
     // Local objects are destroyed automatically, in reverse construction order.
+
+    Person moved = std::move(assigned);
+
+    assigned.greet();
+    moved.greet();
+
 }

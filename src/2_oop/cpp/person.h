@@ -12,6 +12,7 @@ public:
     Person(const std::string& name, int age);
     Person(const Person& other);
     Person& operator=(const Person& other);
+    Person(Person&& other); // rvalue reference for move
     ~Person();
 
     Person& setAge(int age);

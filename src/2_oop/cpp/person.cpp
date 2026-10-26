@@ -1,6 +1,6 @@
 #include "person.h"
-
 #include <iostream>
+#include <utility>
 
 Person::Person(const std::string& name, int age)
     : name_(name), age_(age)
@@ -22,6 +22,13 @@ Person& Person::operator=(const Person& other)
     name_ = other.name_;
     age_ = other.age_;
     return *this; // Return the current object by reference to allow chaining.
+}
+
+Person::Person(Person&& other)
+    : name_(std::move(other.name_)),
+      age_(other.age_)  // inexpensive to copy int
+{
+    std::cout << "Moved Person\n";
 }
 
 Person::~Person()
