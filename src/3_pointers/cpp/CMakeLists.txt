@@ -15,11 +15,9 @@ add_executable(raw_pointer
     weak_pointer.cpp
  )
  add_executable(person_shared_ptr_cycle
-    ../../2_oop/cpp/person.cpp
     person_shared_ptr_cycle.cpp
  )
  add_executable(person_weak_ptr
-    ../../2_oop/cpp/person.cpp
     person_weak_ptr.cpp
  )
 

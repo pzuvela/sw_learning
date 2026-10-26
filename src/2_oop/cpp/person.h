@@ -2,6 +2,24 @@
 
 #include <string>
 
+// Five Resource Managemen Functions
+// 0. Constructor ; outside the five
+// 1. Copy Constructor
+// 2. Copy Assignment
+// 3. Move Constructor
+// 4. Move Assignment
+// 5. Destructor
+
+// Rule of Zero vs Rule of Five
+
+// Rule of Five
+// If your class needs to manually define one of the five resource-management functions, 
+// you should consider whether it needs all five.
+
+// Rule of Zero
+// Prefer members that manage their own resources so your class doesn't need to manually 
+// implement copy/move/destruction.
+
 class Person
 {
 private:

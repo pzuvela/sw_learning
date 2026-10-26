@@ -2,6 +2,8 @@
 #include <iostream>
 #include <utility>
 
+// ::in C++ is broader than just namespaces — it's called the scope resolution operator.
+
 Person::Person(const std::string& name, int age)
     : name_(name), age_(age)
 {
@@ -33,7 +35,7 @@ Person::Person(Person&& other)
 
 Person& Person::operator=(Person&& other)
 {
-    std::cout << "Moved Person by assignment" << other.name_ << '\n';
+    std::cout << "Moved Person by assignment from " << other.name_ << '\n';
     name_ = std::move(other.name_);
     age_ = other.age_;
     return *this; // Return the current object by reference to allow chaining.
