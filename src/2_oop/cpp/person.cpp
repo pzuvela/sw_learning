@@ -31,6 +31,14 @@ Person::Person(Person&& other)
     std::cout << "Moved Person\n";
 }
 
+Person& Person::operator=(Person&& other)
+{
+    std::cout << "Moved Person by assignment" << other.name_ << '\n';
+    name_ = std::move(other.name_);
+    age_ = other.age_;
+    return *this; // Return the current object by reference to allow chaining.
+}
+
 Person::~Person()
 {
     std::cout << "Destroyed " << name_ << '\n';

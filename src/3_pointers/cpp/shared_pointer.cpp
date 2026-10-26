@@ -1,4 +1,4 @@
-/*
+﻿/*
 unique_ptr  -> "this object has one clear owner"
 shared_ptr  -> "several things jointly keep this object alive"
 raw pointer -> "I can access it, but I don't own it"
@@ -59,6 +59,21 @@ void resetSharedPointerEntirely()
     p1.reset();
     std::cout << "Count: " <<  p1.use_count() << '\n';
     p1->greet();
+}
+
+
+void moveAssignment() 
+{
+    /*
+    Person b = a;             → copy constructor
+    b = a;                    → copy assignment
+
+    Person b = std::move(a);  → move constructor
+    b = std::move(a);         → move assignment
+    */
+
+
+
 }
 
 

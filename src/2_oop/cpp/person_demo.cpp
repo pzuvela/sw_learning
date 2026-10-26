@@ -1,24 +1,55 @@
 #include "person.h"
 #include <utility>
 
-int main()
+Person& constructObj() 
 {
     Person alice("Alice", 30);
     alice.setAge(31).setName("Alicia"); // Setters return *this for chaining.
     alice.greet();
+    return alice;
+}
 
+Person& copyObj(Person& alice) 
+{
     Person copied(alice); // Copy construction creates a new object.
     copied.greet();
+    return copied;
+}
 
+Person& copyAssignment(Person& alice)
+{
     Person assigned("Bob", 40);
     assigned = alice; // Copy assignment updates an existing object.
     assigned.greet();
+    return assigned;
+}
 
-    // Local objects are destroyed automatically, in reverse construction order.
+Person& move(Person& alice)
+{
+    Person moved = std::move(alice);
 
-    Person moved = std::move(assigned);
-
-    assigned.greet();
+    alice.greet();
     moved.greet();
+    return moved;
+}
 
+void moveByAssignment()
+{
+    Person a("Alice", 30);
+    Person b("Bob", 50);
+
+    b = std::move(a);
+
+    b.greet();
+    a.greet();
+}
+
+int main()
+{
+    Person& alice = constructObj();
+    Person& copied = copyObj(alice);
+    Person& assigned = copyAssignment(alice);
+    Person& moved = move(assigned);
+    moveByAssignment();
+    // Local objects are destroyed automatically, in reverse construction order.
 }
