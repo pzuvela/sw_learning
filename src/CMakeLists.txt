@@ -9,3 +9,5 @@ add_subdirectory(1_data_structures/1_arrays/cpp)
 add_subdirectory(2_oop/cpp)
 add_subdirectory(3_pointers/cpp)
 add_subdirectory(mini_fab)
+
+enable_testing()
