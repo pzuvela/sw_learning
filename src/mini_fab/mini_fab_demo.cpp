@@ -5,11 +5,12 @@
 #include "sim_robot.h"
 #include "mock_robot.h"
 #include "process_engine.h"
+#include "sim_process_module.h"
 
 
-void runRobot(IRobot& robot) 
+void runRobot(IRobot& robot, IProcessModule& processModule) 
 {
-    ProcessEngine engine(robot);
+    ProcessEngine engine(robot, processModule);
 
     Wafer wafer
     {
@@ -34,9 +35,12 @@ int main()
     robots.push_back(std::make_unique<MockRobot>(true));
     robots.push_back(std::make_unique<MockRobot>(false));
 
+    SimProcessModule processModule;
+    processModule.initialize();
+
     for (const std::unique_ptr<IRobot>& robot : robots) 
     {
-        runRobot(*robot);
+        runRobot(*robot, processModule);
     }
 
     return 0;

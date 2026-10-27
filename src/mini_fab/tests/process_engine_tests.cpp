@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "process_engine.h"
+#include "sim_process_module.h"
 #include "mock_robot.h"
 #include "domain/wafer.h"
 #include "domain/location.h"
@@ -23,13 +24,15 @@ namespace MiniFab::Tests
 			.station = Station::Aligner,
 			.slot = 7
 		};
+
+		SimProcessModule processModule;
 	};
 
 	TEST_F(ProcessEngineTest, UpdatesWaferLocationWhenRobotMoveSucceeds)
 	{
 		MockRobot robot{ true };
 
-		ProcessEngine engine(robot);
+		ProcessEngine engine(robot, processModule);
 
 		engine.run(
 			wafer,
@@ -43,7 +46,7 @@ namespace MiniFab::Tests
 	{
 		MockRobot robot{ false };
 
-		ProcessEngine engine(robot);
+		ProcessEngine engine(robot, processModule);
 
 		Location originalLocation = wafer.location;
 
