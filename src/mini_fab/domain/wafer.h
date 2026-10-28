@@ -1,8 +1,9 @@
 #pragma once
+#include <string>
 #include "location.h"
 
 struct Wafer
 {
-    int id;
+    std::string id;
     Location location;
 };

@@ -14,7 +14,7 @@ void runRobot(IRobot& robot, IProcessModule& processModule)
 
     Wafer wafer
     {
-        5,
+        "5",
         Location{ Station::Aligner, 3 }
     };
 

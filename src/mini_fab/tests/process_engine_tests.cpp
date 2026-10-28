@@ -124,4 +124,64 @@ namespace MiniFab::Tests
         
         EXPECT_EQ(engine.state(), EquipmentState::Idle);
     }
+
+    TEST_F(ProcessEngineTest, DoesNotProcessWaferWhenEngineIsFaulted)
+    {
+        MockRobot robot{ false };
+        MockProcessModule processModule{ true };
+        ProcessEngine engine(robot, processModule);
+
+        engine.processWafer(wafer_, destination_, recipe_);
+        robot.setMoveShouldSucceed(true);
+
+        bool isProcessed = engine.processWafer(wafer_, destination_, recipe_);
+
+        EXPECT_FALSE(isProcessed);
+        EXPECT_EQ(engine.state(), EquipmentState::Faulted);
+        EXPECT_FALSE(processModule.processWasCalled());
+    }
+
+    TEST_F(ProcessEngineTest, ResetReturnsEngineToIdleAfterFault) 
+    {
+        MockRobot robot{ false };
+        MockProcessModule processModule{ true };
+        ProcessEngine engine(robot, processModule);
+
+        engine.processWafer(wafer_, destination_, recipe_);
+
+        bool isResetSuccessful = engine.reset();
+
+        EXPECT_TRUE(isResetSuccessful);
+        EXPECT_EQ(engine.state(), EquipmentState::Idle);
+    }
+
+    TEST_F(ProcessEngineTest, ResetFailsWhenEngineIsNotFaulted) 
+    {
+        MockRobot robot{ false };
+        MockProcessModule processModule{ true };
+        ProcessEngine engine(robot, processModule);
+
+        bool isResetSuccessful = engine.reset();
+
+        EXPECT_FALSE(isResetSuccessful);
+        EXPECT_EQ(engine.state(), EquipmentState::Idle);
+    }
+
+    TEST_F(ProcessEngineTest, ProcessesWaferSuccessfullyAfterResettingFromFault) 
+    {
+        MockRobot robot{ false };
+        MockProcessModule processModule{ true };
+        ProcessEngine engine(robot, processModule);
+
+        engine.processWafer(wafer_, destination_, recipe_);
+        
+        engine.reset();
+        
+        robot.setMoveShouldSucceed(true);
+
+        bool isProcessed = engine.processWafer(wafer_, destination_, recipe_);
+
+        EXPECT_TRUE(isProcessed);
+        EXPECT_EQ(engine.state(), EquipmentState::Idle);
+    }
 }

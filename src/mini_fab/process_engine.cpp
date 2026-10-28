@@ -45,6 +45,11 @@ bool ProcessEngine::processWafer(
 	const Recipe& recipe
 )
 {
+	if (state_ != EquipmentState::Idle)
+	{
+		return false;
+	}
+
 	state_ = EquipmentState::Moving;
 
 	bool isMovementSuccessful = run(wafer, processModuleLocation);
@@ -74,4 +79,17 @@ bool ProcessEngine::processWafer(
 EquipmentState ProcessEngine::state() const 
 {
 	return state_;
+}
+
+bool ProcessEngine::reset() 
+{
+
+	if (state_ != EquipmentState::Faulted)
+	{
+		return false;
+	}
+
+	state_ = EquipmentState::Idle;
+
+	return true;
 }

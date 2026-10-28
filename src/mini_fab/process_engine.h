@@ -33,4 +33,6 @@ public:
     );
 
     EquipmentState state() const;
+
+    bool reset();
 };

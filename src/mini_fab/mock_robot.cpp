@@ -29,3 +29,8 @@ bool MockRobot::isReady() const
 {
     return ready_;
 }
+
+void MockRobot::setMoveShouldSucceed(bool moveShouldSucceed) 
+{
+    moveShouldSucceed_ = moveShouldSucceed;
+}

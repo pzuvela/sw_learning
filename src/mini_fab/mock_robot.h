@@ -14,4 +14,5 @@ public:
 		const Location& destination
 	) override;
 	bool isReady() const override;
+	void setMoveShouldSucceed(bool moveShouldSucceed);
 };

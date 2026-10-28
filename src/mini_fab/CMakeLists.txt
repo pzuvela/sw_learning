@@ -1,6 +1,7 @@
   add_library(mini_fab_core
     sim_robot.cpp
     mock_robot.cpp
+    wafer_manager.cpp
     process_engine.cpp
     sim_process_module.cpp
     mock_process_module.cpp
