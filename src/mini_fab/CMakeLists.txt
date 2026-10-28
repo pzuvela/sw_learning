@@ -3,6 +3,7 @@
     mock_robot.cpp
     process_engine.cpp
     sim_process_module.cpp
+    mock_process_module.cpp
 )
 
 target_include_directories(mini_fab_core PUBLIC

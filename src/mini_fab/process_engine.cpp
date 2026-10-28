@@ -8,7 +8,7 @@ ProcessEngine::ProcessEngine(IRobot& robot, IProcessModule& processModule)
 	std::cout << "Instantiated robot & process module\n";
 }
 
-void ProcessEngine::run(
+bool ProcessEngine::run(
 	Wafer& wafer,
 	const Location& destination
 )
@@ -23,6 +23,8 @@ void ProcessEngine::run(
 	{
 		wafer.location = destination;
 	}
+
+	return success;
 }
 
 bool ProcessEngine::process(
@@ -35,4 +37,41 @@ bool ProcessEngine::process(
 		processModule_.initialize();
 	}
 	return processModule_.process(wafer, recipe);
+}
+
+bool ProcessEngine::processWafer(
+	Wafer& wafer,
+	const Location& processModuleLocation,
+	const Recipe& recipe
+)
+{
+	state_ = EquipmentState::Moving;
+
+	bool isMovementSuccessful = run(wafer, processModuleLocation);
+
+	if (!isMovementSuccessful) 
+	{
+		state_ = EquipmentState::Faulted;
+		return false;
+	}
+
+	state_ = EquipmentState::Processing;
+
+	bool isProcessSuccessful = process(wafer, recipe);
+
+	if (isProcessSuccessful)
+	{
+		state_ = EquipmentState::Idle;
+	}
+	else
+	{
+		state_ = EquipmentState::Faulted;
+	}
+
+	return isProcessSuccessful;
+}
+
+EquipmentState ProcessEngine::state() const 
+{
+	return state_;
 }

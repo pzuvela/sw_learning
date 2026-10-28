@@ -10,7 +10,25 @@ namespace MiniFab::Tests
 {
     // Arrange, Act, Assert -> AAA principle for testing
 
-    TEST(SimProcessModuleTest, IsNotReadyBeforeInitialization)
+    class SimProcessModuleTest : public ::testing::Test
+    {
+    protected:
+        Wafer wafer{
+            .id = 1,
+            .location = Location{
+                .station = Station::LoadPort,
+                .slot = 2
+            }
+        };
+
+        Recipe recipe{
+            .id = 1,
+            .name = "Recipe1",
+            .durationSeconds = 55.2
+        };
+    };
+
+    TEST_F(SimProcessModuleTest, IsNotReadyBeforeInitialization)
     {
         SimProcessModule module = SimProcessModule();
 
@@ -19,7 +37,7 @@ namespace MiniFab::Tests
         EXPECT_FALSE(isReady);
     }
 
-    TEST(SimProcessModuleTest, IsReadyAfterInitialization)
+    TEST_F(SimProcessModuleTest, IsReadyAfterInitialization)
     {
         SimProcessModule module = SimProcessModule();
 
@@ -31,23 +49,9 @@ namespace MiniFab::Tests
     }
 
 
-    TEST(SimProcessModuleTest, ProcessSucceedsWhenInitialized)
+    TEST_F(SimProcessModuleTest, ProcessSucceedsWhenInitialized)
     {
         SimProcessModule module = SimProcessModule();
-
-        Wafer wafer{
-            .id = 1,
-            .location = Location{
-                .station = Station::LoadPort,
-                .slot = 2
-            }
-        };
-
-        Recipe recipe{
-            .id = 2,
-            .name = "Recipe1",
-            .durationSeconds = 50.6
-        };
 
         module.initialize();
 
@@ -56,23 +60,9 @@ namespace MiniFab::Tests
         EXPECT_TRUE(isSuccessful);
     }
 
-    TEST(SimProcessModuleTest, ProcessThrowsWhenNotInitialized)
+    TEST_F(SimProcessModuleTest, ProcessThrowsWhenNotInitialized)
     {
         SimProcessModule module = SimProcessModule();
-
-        Wafer wafer{
-            .id = 1,
-            .location = Location{
-                .station = Station::LoadPort,
-                .slot = 2
-            }
-        };
-
-        Recipe recipe{
-            .id = 2,
-            .name = "Recipe1",
-            .durationSeconds = 50.6
-        };
 
         EXPECT_THROW(module.process(wafer, recipe), std::logic_error);
     }

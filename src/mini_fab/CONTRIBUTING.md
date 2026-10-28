@@ -1,257 +1,113 @@
 # Contributing
 
-This project favors simple, readable, maintainable, and testable code over clever or unnecessarily complex solutions.
+## Prefer Simplicity
 
-The following principles should guide implementation, review, refactoring, and testing decisions.
+Choose the simplest design that correctly solves the current problem.
 
-## 1. Prefer Simplicity
+Do not introduce abstractions, patterns, layers, or frameworks without a concrete need. Complexity should solve an actual problem rather than anticipate one that may never occur.
 
-**Simple is better than unnecessarily complex.**
+Follow KISS and YAGNI.
 
-Use the simplest design that correctly solves the current problem. Introduce additional abstractions, patterns, layers, or infrastructure only when they solve a concrete problem.
+## Keep Responsibilities Focused
 
-Prefer:
+Classes and methods should have one clear responsibility and operate at a cohesive level of abstraction.
 
-- Direct calls over unnecessary indirection.
-- Standard-library functionality over custom implementations.
-- Simple data structures over elaborate abstractions.
-- Straightforward control flow over clever code.
-- A plain function or class over a design pattern when no pattern is needed.
+Do not use arbitrary line-count limits. Refactor when a class or method begins accumulating conceptually distinct responsibilities.
 
-Follow the principles of **KISS** and **YAGNI**.
+## Write Self-Explanatory Code
 
-Complexity must justify itself.
+Prefer clear names and structure over explanatory comments.
 
-Do not build functionality merely because it may be useful in the future.
+Comments should primarily explain **why** something is done, especially when the reason is not obvious from the code.
 
-## 2. Keep Responsibilities Focused
+Avoid comments that merely restate what the code already says.
 
-Methods and classes should have clear, focused responsibilities.
+If code requires a comment to explain what it does, first consider whether the code can be made clearer.
 
-A method should ideally be describable with one concise sentence. If a method performs several conceptually different operations, consider separating those responsibilities.
-
-Prefer:
-
-```cpp
-bool ProcessEngine::run(Wafer& wafer, const Recipe& recipe)
-{
-    if (!moveToProcessModule(wafer))
-        return false;
-
-    if (!processWafer(wafer, recipe))
-        return false;
-
-    return moveToOutput(wafer);
-}
-```
-
-over a single method containing movement, processing, logging, persistence, error recovery, statistics, notifications, and other unrelated responsibilities.
-
-Do not refactor solely because a method exceeds an arbitrary number of lines. A longer cohesive method may be easier to understand than many tiny methods requiring constant navigation between files.
-
-Refactor when responsibilities become unclear or mixed.
-
-## 3. Write Self-Explanatory Code
-
-Code should explain **what** it does.
-
-Comments should explain **why** it does it.
-
-Avoid comments that merely repeat the code.
-
-Do not write:
-
-```cpp
-// Initialize the robot
-robot.initialize();
-
-// Update wafer location
-wafer.location = destination;
-```
-
-Prefer comments that capture design intent, constraints, non-obvious decisions, or important invariants:
-
-```cpp
-// Update software state only after the physical move succeeds
-// so it never gets ahead of the equipment state.
-if (robot.moveWafer(wafer, destination))
-{
-    wafer.location = destination;
-}
-```
-
-If code requires a comment simply to explain what a variable, method, or block of code does, first consider improving the names or structure.
-
-## 4. Prefer Descriptive Names
+## Prefer Descriptive Names
 
 Prefer full, descriptive names over abbreviations.
 
+Use abbreviations only when they are conventional and unambiguous within the domain, such as `ID`, `API`, or `FOUP`.
+
+Names should make intent clear without requiring additional context.
+
+## Keep Tests Focused
+
+Each test should verify one clear behavior or contract.
+
+Tests should be easy to understand independently and should avoid unnecessary setup or dependencies.
+
+## Limit Assertions per Test
+
+As a general guideline, prefer no more than three meaningful assertions in a test.
+
+If a test requires many assertions, first consider whether:
+
+- the test should be split into multiple behaviors,
+- repeated cases should be parameterized, or
+- the underlying implementation has too many responsibilities and should be refactored.
+
+This is a heuristic rather than an absolute rule.
+
+## Parameterize Repeated Behavior
+
+Use parameterized tests when the same behavior needs to be verified across multiple inputs.
+
+Do not introduce parameterization merely to reduce the number of lines in a test.
+
+## Do Not Reimplement Production Logic in Tests
+
+Tests should verify production behavior against **independently established expected outcomes**.
+
+Prefer explicit reference values, known state transitions, golden or reference datasets, externally verified results, or independently derived expectations.
+
+Avoid calculating the expected result by reproducing the same algorithm or business logic used by the production implementation. Duplicating production logic in a test can allow the same conceptual error to exist in both implementations while the test still passes.
+
 Prefer:
 
 ```cpp
-processModule
-destination
-processResult
-waferLocation
-processEngine
+EXPECT_EQ(calculator.calculate(knownInput), 42);
 ```
 
-over:
+over implementing another version of the calculation inside the test to determine the expected value.
 
-```cpp
-pm
-dest
-procRes
-wLoc
-pe
-```
+Test doubles should follow the same principle. Mocks, fakes, and stubs should provide simple, controlled behavior required by the test rather than reimplementing the production component they replace.
 
-Names should make the purpose of the code clear without requiring explanatory comments.
+For example, a mock process module may be configured to return success or failure. It should not reproduce the real process module's decision-making logic.
 
-Well-established technical or domain terminology may remain abbreviated when the abbreviation itself is the conventional name, for example:
+## Preserve Clear Ownership and State
 
-```text
-API
-ID
-FOUP
-```
+Every important piece of mutable state should have clear ownership.
 
-Avoid inventing project-specific abbreviations merely to save characters.
+Avoid multiple components independently modifying the same state unless there is a deliberate synchronization mechanism and a clear reason for doing so.
 
-## 5. Keep Tests Focused
+Components that perform an operation should report its outcome. The component responsible for application state should decide how that outcome changes the software model.
 
-Each unit test should verify **one clear behavior**.
+## Prefer Interfaces at Component Boundaries
 
-Use the **Arrange, Act, Assert (AAA)** structure where appropriate:
+Use interfaces where they provide a meaningful boundary between components or implementations.
 
-```cpp
-TEST(SimProcessModuleTest, IsReadyAfterInitialization)
-{
-    // Arrange
-    SimProcessModule module;
+Interfaces are especially useful for hardware abstraction, simulation, testing, and isolating external or legacy systems.
 
-    // Act
-    module.initialize();
+Do not create interfaces for every class by default.
 
-    // Assert
-    EXPECT_TRUE(module.isReady());
-}
-```
-
-The comments above are useful while learning or where they clarify test structure, but they do not need to be mechanically added to every obvious test.
-
-Test behavior and contracts rather than implementation details.
-
-## 6. Limit Assertions per Test
-
-Aim for **no more than three meaningful assertions per test**.
-
-This is a guideline rather than an absolute rule, but a large number of assertions is usually a signal worth investigating.
-
-If a test requires more than three assertions, consider whether to:
-
-1. Split the test into multiple tests covering separate behaviors.
-2. Parameterize the test when the same behavior needs verification across multiple inputs.
-3. Refactor the underlying method or class if it has accumulated too many responsibilities.
-
-A small number of related assertions describing a single outcome is acceptable.
-
-For example:
-
-```cpp
-EXPECT_TRUE(result);
-EXPECT_EQ(wafer.location.station, Station::Aligner);
-EXPECT_EQ(wafer.location.slot, 1);
-```
-
-can reasonably represent one behavior.
-
-## 7. Parameterize Repeated Behavior
-
-Use parameterized tests when the **same behavior** must be verified against multiple inputs or scenarios.
-
-Do not use parameterization merely to reduce line count.
-
-If the scenarios represent fundamentally different behaviors, separate tests are clearer.
-
-## 8. Preserve Clear Ownership and State
-
-Make ownership and responsibility for state changes explicit.
-
-A component should not modify state that belongs to another layer merely because it has access to that state.
-
-For example, a robot may execute a physical wafer movement and report whether it succeeded:
-
-```cpp
-bool moveWafer(
-    const Wafer& wafer,
-    const Location& destination);
-```
-
-The component coordinating the operation is responsible for updating the software representation of the wafer location after successful movement.
-
-This preserves the invariant that software state must not claim a physical operation succeeded when it did not.
-
-## 9. Prefer Interfaces at Component Boundaries
-
-Components should depend on abstractions where multiple implementations or test substitutes are useful.
-
-For example:
-
-```cpp
-class ProcessEngine
-{
-private:
-    IRobot& robot_;
-};
-```
-
-allows the process engine to operate with a simulator, real hardware implementation, or test double without changing the engine itself.
-
-Do not create interfaces purely for abstraction's sake. Introduce them where they establish a useful component boundary or provide meaningful substitutability.
-
-## 10. Prefer Standard Resource Management
+## Prefer Standard Resource Management
 
 Prefer RAII and standard C++ resource-management facilities.
 
-Use standard containers and smart pointers rather than manual memory management whenever practical.
+Use automatic storage and standard containers where possible. Use smart pointers when dynamic ownership is required, and make ownership semantics explicit.
 
-Prefer:
+Avoid manual resource management unless there is a concrete reason for it.
 
-```cpp
-std::vector
-std::string
-std::unique_ptr
-std::shared_ptr
-```
+## Optimize for Maintainability
 
-over manually managing equivalent resources.
+Prefer code that another engineer can understand, test, debug, and safely modify over code that is merely clever or compact.
 
-Follow the **Rule of Zero** where possible.
-
-Manual resource ownership and Rule-of-Five implementations should exist only when there is a concrete reason for them.
-
-## 11. Optimize for Maintainability
-
-Code is read far more often than it is written.
-
-Prefer code that another engineer can understand, debug, test, and modify safely.
-
-When choosing between two correct solutions, favor the one that is:
-
-- Simpler.
-- More explicit.
-- Easier to test.
-- Easier to debug.
-- Less surprising.
-- Clearer about ownership and responsibility.
-
-Avoid cleverness for its own sake.
-
----
+Architectural sophistication is valuable only when it makes the system easier to evolve or solves a real engineering constraint.
 
 ## Guiding Principle
 
-When uncertain, choose the design that makes the intent obvious.
+Keep the system simple, focused, explicit, readable, and testable.
 
-**Simple. Focused. Explicit. Readable. Testable.**
+Introduce complexity only when the problem demonstrates that it is necessary.
